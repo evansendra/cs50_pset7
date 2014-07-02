@@ -1,0 +1,1 @@
+<p>A share of <?= $name ?> (<?= $symbol ?>) currently costs <span style="font-size:larger;">$<?= $price ?></span>.</p>
