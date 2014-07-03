@@ -25,7 +25,7 @@
         <div class="container">
 
             <div id="top">
-                <a href="/"><img alt="C$50 Finance" src="/img/logo.gif"/></a>
+                <h1>StockUp</h1>
             </div>
 
             <div id="middle">
