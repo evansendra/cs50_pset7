@@ -4,7 +4,7 @@
 	require("../includes/config.php");
 
 	// if no request has been made
-	if (!isset( $_GET["symbol"] ))
+	if (!$_SERVER['REQUEST_METHOD'] == "POST")
 	{
 		render("quote_form.php", ["title" => "Get Quote"]);
 	}
