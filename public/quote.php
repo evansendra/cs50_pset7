@@ -4,14 +4,10 @@
 	require("../includes/config.php");
 
 	// if no request has been made
-	if (!$_SERVER['REQUEST_METHOD'] == "POST")
+	if ( $_SERVER['REQUEST_METHOD'] == "GET" 
+		&& empty($_GET["symbol"]) )
 	{
 		render("quote_form.php", ["title" => "Get Quote"]);
-	}
-	// if an empty symbol was submitted
-	else if ( empty( $_GET["symbol"] ) )	
-	{
-		apologize("You must provide a stock symbol.");
 	}
 	// lookup the stock and show it to the user (if it exists)
 	else
