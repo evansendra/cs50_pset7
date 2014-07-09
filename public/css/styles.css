@@ -19,7 +19,16 @@
 #top h1
 {
     font-size: 60px;
-    margin-bottom: 30px;
+}
+
+#menu
+{
+    display: inline-block;
+}
+
+#top
+{
+    margin-bottom: 20px;
 }
 
 #middle .form-control
@@ -29,11 +38,6 @@
 
     /* override Bootstrap's 100% width for form controls */
     width: auto;
-}
-
-#middle th
-{
-    text-align: center;
 }
 
 #middle td

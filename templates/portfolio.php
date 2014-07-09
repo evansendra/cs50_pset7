@@ -29,7 +29,7 @@
 
 				<tr>
 					<td colspan="4">CASH</td>
-					<td>$<?= $balance ?></td>
+					<td><strong>$<?= $balance ?></strong></td>
 				</tr>
 
 			</table>

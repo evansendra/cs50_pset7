@@ -27,6 +27,16 @@
 
             <div id="top">
                 <h1>StockUp</h1>
+
+                <div id="menu">
+                    <ul class="nav nav-pills">
+                        <li><a href="/">Portfolio</a></li>
+                        <li><a href="buy.php">Buy</a></li>
+                        <li><a href="sell.php">Sell</a></li>
+                        <li><a href="history.php">History</a></li>
+                        <li><a href="quote.php">Get Quote</a></li>
+                    </ul>
+                </div>
             </div>
 
             <div id="middle">
