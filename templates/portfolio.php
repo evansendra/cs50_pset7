@@ -1,7 +1,7 @@
 <div>
 		<?php if ( empty($positions) ): ?>
 			<p>You don't have any stocks right now.  Maybe you want to <a href="buy.php">buy some</a>
-				or <a href="quote.php">get a quote</a></p>
+				or <a href="quote.php">get a quote</a>?</p>
 		<?php else: ?>
 			<table class="table table-striped">
 				<thead>

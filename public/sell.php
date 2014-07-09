@@ -37,6 +37,15 @@
 			// get remaining stocks after sale
 			$stocks = query("SELECT * FROM holdings WHERE id = ?", $_SESSION["id"]);
 
+			// get current cash from db
+			$user = query("SELECT * FROM users WHERE id = ?", $_SESSION["id"]);
+
+			// add sale to history of transactions
+			query("INSERT INTO history (id, is_buy, stock, shares, price_per_share, balance)
+					VALUES (?, false, ?, ?, ?, ?)",
+					$_SESSION["id"], $stock_to_sell, $res[0]["shares"], 
+					$stock_info["price"], $user[0]["cash"]);	
+
 			// repopulate the sell page with success message and remaining stocks
 			$params = 
 			[

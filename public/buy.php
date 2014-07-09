@@ -43,6 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		query("UPDATE users SET cash = cash - ? WHERE id = ?",
 				$total, $_SESSION["id"]);
 
+		// add purchase to history of transactions
+		query("INSERT INTO history (id, is_buy, stock, shares, price_per_share, balance)
+				VALUES (?, true, ?, ?, ?, ?)",
+				$_SESSION["id"], $symbol, $shares, $lookup["price"], $balance - $total);
+
 		// alert user of purchase
 		$render_params =
 		[
