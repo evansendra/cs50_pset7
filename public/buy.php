@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 			"shares" => $shares,
 			"symbol" => $symbol,
 			"total" => $ftotal,
-			"balance" => $fbalance
+			"balance" => number_format($balance - $total, 2)
 		];
 
 		render("buy_confirmation.php", $render_params);
