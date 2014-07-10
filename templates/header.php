@@ -28,6 +28,10 @@
             <div id="top">
                 <h1>StockUp</h1>
 
+                <?php 
+                if ( show_nav_menu( $_SERVER["PHP_SELF"] ) ):
+                ?>
+
                 <div id="menu">
                     <ul class="nav nav-pills">
                         <li><a href="/">Portfolio</a></li>
@@ -37,6 +41,8 @@
                         <li><a href="quote.php">Get Quote</a></li>
                     </ul>
                 </div>
+
+                <?php endif ?>
             </div>
 
             <div id="middle">

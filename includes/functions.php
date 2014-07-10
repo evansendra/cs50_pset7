@@ -219,4 +219,33 @@
         }
     }
 
+    /**
+     * looks through a list of pages on the site on which the nav menu
+     * should not be shown (i.e. login.php), returns true where the menu
+     * should be displayed and false where it shouldn't
+     */
+    function show_nav_menu ($cur_page)
+    {
+        $no_menu_pages = 
+        [
+            "login.php",
+            "register.php",
+            "forgot.php"
+        ];
+
+        // return false if one of the no menu pages matches
+        foreach ($no_menu_pages as $page)
+        {
+            // check if the page is a page on which we want hide menu
+            $page_len = strlen( $page ) * -1;
+            if ( substr( $cur_page, $page_len) === $page) 
+            {
+                return false;
+            }
+        } 
+
+        // no match must need to show that menu
+        return true;
+    }
+
 ?>

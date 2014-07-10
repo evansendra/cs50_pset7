@@ -4,6 +4,9 @@
             <input autofocus class="form-control" name="username" placeholder="Username" type="text"/>
         </div>
         <div class="form-group">
+            <input class="form-control" name="email" placeholder="Email Address" type="text"/>
+        </div>
+        <div class="form-group">
             <input class="form-control" name="password" placeholder="Password" type="password"/>
         </div>
         <div class="form-group">

@@ -7,9 +7,13 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         // ensure the form was correctly filled        
-        if ( empty($_POST["username"]) || empty($_POST["password"]) )
+        if ( empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"]) )
         {
-            apologize("You must have a username and password.");
+            apologize("You must have a username, email address, and password.");
+        }
+        else if ( !filter_var( $_POST[ "email" ], FILTER_VALIDATE_EMAIL) )
+        {
+            apologize("Sorry, the email address " . $_POST["email"] . " is invalid.");
         }
         else if ($_POST["password"] != $_POST["confirmation"]) 
         {
@@ -18,13 +22,14 @@
         else
         {
             $starting_cash = 1000.00;
-            $query_res = query("INSERT INTO users (username, hash, cash) VALUES (?, ?, ".$starting_cash.")",
-                    $_POST["username"], crypt( $_POST["password"] ) );
+            $query_res = query("INSERT INTO users (username, email, hash, cash) VALUES (?, ?, ?, ?)",
+                    $_POST["username"], $_POST["email"], crypt( $_POST["password"] ), $starting_cash);
 
             // type safety is important here, could return false from empty array which is okay
             if ($query_res === FALSE)
             {
-                apologize("Username " . $_POST["username"] . " already taken.");
+                apologize("Sorry, an account with username " . $_POST["username"] . 
+                    " or  email " . $_POST["email"] . " is already in use.");
             }
             else 
             {

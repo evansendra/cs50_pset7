@@ -13,4 +13,6 @@
 </form>
 <div>
     or <a href="register.php">register</a> for an account
+    <br />
+    <small><a style="color:#777" href="forgot.php">Forgot your password?</a></small>
 </div>

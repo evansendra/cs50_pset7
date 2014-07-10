@@ -21,7 +21,7 @@
     session_start();
 
     // require authentication for most pages if not logged in 
-    if (!preg_match("{(?:login|logout|register)\.php$}", $_SERVER["PHP_SELF"]))
+    if (!preg_match("{(?:login|logout|register|forgot|reset)\.php$}", $_SERVER["PHP_SELF"]))
     {
         if (empty($_SESSION["id"]))
         {
