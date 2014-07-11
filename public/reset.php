@@ -18,9 +18,15 @@
 	else if ( empty($reset_check_query) )
 		apologize("Sorry, this isn't a valid password reset.");
 
+	// check if the code isn't expired
+	$exp = new DateTime($reset_check_query[0]["expiration"]);
+	$now = new DateTime();
+
+	if ($exp <= $now)
+		apologize("Sorry, you're password reset has expired.");
+
 	// must have valid password reset link
 	$user_row = query("SELECT * FROM users WHERE email = ?", $reset_check_query[0]["email"]);
-
 	if ($user_row === false || empty($user_row))
 		apologize("Couldn't reset your password. An error occurred : (");
 

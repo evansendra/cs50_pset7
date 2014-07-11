@@ -307,7 +307,7 @@
         // send the user an email with the code to reset the password
         $mail = new PHPMailer();
         $mail->IsSMTP();
-        $mail->SMTPDebug = 2; // enable debuggin info
+        // $mail->SMTPDebug = 2; // enable debuggin info
 
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = "ssl";
