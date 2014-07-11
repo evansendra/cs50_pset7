@@ -2,6 +2,7 @@
 
 require("../includes/config.php");
 
+	
 	if ($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		// did they give a valid email to us
@@ -19,7 +20,15 @@ require("../includes/config.php");
 		else if ( empty ($user_query) )
 			apologize("No user with email " . $_POST["email"] . " was found.");
 
-		// must have found user with email this, send him mail for recovery
+		// must have found user with this email, send him mail for recovery
+		if ( email_pass( $_POST["email"] ) )
+		{
+			render("alert_pass_sent.php", ["title" => "Password Sent"]);
+		}
+		else
+		{
+			apologize("We couldn't reset your password at this time; try again later.");
+		}	
 	}
 	else
 	{

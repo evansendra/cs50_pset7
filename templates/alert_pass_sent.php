@@ -1,0 +1,1 @@
+<p class="lead">An email with instructions to reset your password has been sent.  Go check it out.</p>

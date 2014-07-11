@@ -6,7 +6,7 @@
 			<input class="form-control" name="email" placeholder="Email Address" />
 		</div>
 		<div class="form-group">
-			<button type="submit" class="btn btn-default">Log In</button>
+			<button type="submit" class="btn btn-default">Reset</button>
 		</div>
 	</fieldset>
 </form>

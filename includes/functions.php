@@ -10,6 +10,7 @@
      */
 
     require_once("constants.php");
+    require_once("PHPMailer/class.phpmailer.php");
 
     /**
      * Apologizes to user with message.
@@ -226,12 +227,7 @@
      */
     function show_nav_menu ($cur_page)
     {
-        $no_menu_pages = 
-        [
-            "login.php",
-            "register.php",
-            "forgot.php"
-        ];
+        $no_menu_pages = unserialize( constant("NO_MENU_PAGES") );
 
         // return false if one of the no menu pages matches
         foreach ($no_menu_pages as $page)
@@ -246,6 +242,95 @@
 
         // no match must need to show that menu
         return true;
+    }
+
+    /**
+     * generates random n character ascii code for GET on pass reset page. returns
+     * the generated string of random characters
+     */
+    function gen_reset_code( $n )
+    {
+        $gen_code = "";
+        for ($i = 0; $i < $n; ++$i)
+        {
+            // whether we'll get num, lower char, upper char
+            $pluck = mt_rand(0, 2);
+
+            $rand = '';
+            // generate random ascii num
+            if ($pluck === 0)
+                $rand = mt_rand(48, 57);
+            // generate random ascii upper num
+            else if ($pluck === 1)
+                $rand = mt_rand(65, 90);
+            // generate random ascii lower num
+            else
+                $rand = mt_rand(97, 122);
+
+            $gen_code .= chr($rand);
+        }
+        return $gen_code;
+    }
+
+
+    /**
+     * emails the user via $email a url with which they can reset their password. 
+     * the expiration of the password reset is set to now + 30 minutes
+     * returns false if sending mail fails else true
+     */
+    function email_pass ($email)
+    {
+        // generate a 30-char reset code and insert to the db
+        $code = gen_reset_code(30);
+
+        // set datetime expiration to now + 30 minutes
+        $interval = new DateInterval("PT30M");
+        $now = new DateTime();
+        $expiry = $now->add($interval);
+        // format date for mysql datetime type
+        $exp_date = $expiry->format("Y-m-d H:i:s");
+
+        // check if the user already has a sent code?
+        $check_query = query("SELECT * FROM reset_pass WHERE email = ?");
+        if ($check_query !== false)
+        {
+            dump($check_query);            
+        }
+
+        query("INSERT into reset_pass (email, code, expiration) " .
+            "VALUES (?, ?, ?)", $email, $code, $exp_date);
+
+        // build url with which user will be able to reset password
+        $url = constant("FORGOT_PASS_BASE_URL");
+        $url .= "/reset.php?code=$code"; 
+
+        // send the user an email with the code to reset the password
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->SMTPDebug = 2; // enable debuggin info
+
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = "ssl";
+        $mail->Host = "smtp.mail.yahoo.com";
+        $mail->Port = 465;
+
+        $mail->Username = constant("EMAIL_SENDER");
+        $mail->Password = constant("EMAIL_PASS");
+
+        $mail->SetFrom( constant("EMAIL_SENDER") ,
+                    "C$50 Finance Bot");
+
+        $mail->AddAddress($email);
+
+        $mail->Subject = "C$50 Finance - Password Reset";
+
+        $mail->Body = "<html><body>Hi, to reset your password, go to " .
+            "<a href=\"$url\">$url</a></body></html>";
+
+        $mail->AltBody = "Hi , to reset your password, copy and paste this " .
+            " url into your browser: $url";
+
+        return $mail->Send();
     }
 
 ?>
